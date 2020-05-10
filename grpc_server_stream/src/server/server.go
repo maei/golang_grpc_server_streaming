@@ -7,6 +7,7 @@ import (
 	"github.com/maei/shared_utils_go/logger"
 	"google.golang.org/grpc"
 	"net"
+	"os"
 	"time"
 )
 
@@ -32,7 +33,7 @@ func (*server) GreetManyTimes(req *greetpb.GreetManyTimesRequest, stream greetpb
 func StartGRPCServer() {
 	logger.Info("gRPC greet-streaming started")
 
-	lis, err := net.Listen("tcp", ":50051")
+	lis, err := net.Listen("tcp", os.Getenv("SERVER_PORT"))
 	if err != nil {
 		logger.Error("error while listening gRPC Server", err)
 	}
