@@ -13,6 +13,10 @@ import (
 
 type server struct{}
 
+var (
+	s = grpc.NewServer()
+)
+
 func (*server) GreetManyTimes(req *greetpb.GreetManyTimesRequest, stream greetpb.GreetService_GreetManyTimesServer) error {
 	firstName := req.GetGreeting().GetFirstName()
 	lastName := req.GetGreeting().GetLastName()
@@ -37,7 +41,6 @@ func StartGRPCServer() {
 	if err != nil {
 		logger.Error("error while listening gRPC Server", err)
 	}
-	s := grpc.NewServer()
 	greetpb.RegisterGreetServiceServer(s, &server{})
 
 	errServer := s.Serve(lis)
