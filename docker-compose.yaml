@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  grpc-client:
+    image: grpc-client:latest
+    ports:
+    - "8002:8002"
+    environment:
+    - SERVER_HOST=grpc-server:50051
+  grpc-server:
+    image: grpc-server:latest
+    environment:
+    - SERVER_PORT=:50051      
